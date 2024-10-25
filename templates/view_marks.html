@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Child's Marks</h2>
+<table>
+    <tr>
+        <th>Student Name</th>
+        <th>Marks</th>
+    </tr>
+    {% for mark in marks %}
+    <tr>
+        <td>{{ mark.student_name }}</td>
+        <td>{{ mark.marks }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

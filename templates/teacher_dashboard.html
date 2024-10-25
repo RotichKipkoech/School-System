@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Teacher Dashboard</h2>
+    <p>Welcome, {{ current_user.username }}! Here you can manage your students' marks and track their progress.</p>
+    
+    <div class="mb-3">
+        <a href="{{ url_for('add_marks') }}" class="btn btn-primary">Add Marks</a>
+    </div>
+    
+    <h3 class="mt-4">Helpful Resources</h3>
+    <p>If you need assistance or want to review your class list, please reach out to the administration.</p>
+</div>
+{% endblock %}

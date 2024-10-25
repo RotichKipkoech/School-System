@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Parent Dashboard</h2>
+    <p>Welcome to your dashboard! Here you can manage your child's educational details.</p>
+    
+    <div class="mb-3">
+        <a href="{{ url_for('view_marks') }}" class="btn btn-primary">View Marks</a>
+        <a href="{{ url_for('view_fee_balance') }}" class="btn btn-secondary">View Fee Balance</a>
+    </div>
+    
+    <h3 class="mt-4">Additional Information</h3>
+    <p>If you have any questions or need assistance, please contact the administration.</p>
+</div>
+{% endblock %}

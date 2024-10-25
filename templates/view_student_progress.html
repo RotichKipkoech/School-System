@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Progress for {{ current_user.parent.child_name }}</h2>
+
+{% if progress %}
+    <ul>
+    {% for item in progress %}
+        <li>{{ item.subject }}: {{ item.grade }} - {{ item.comments }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No progress information found for this student.</p>
+{% endif %}
+
+<a href="{{ url_for('parent_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}

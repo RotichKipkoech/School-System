@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit User: {{ user.username }}</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}<br>
+        {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}<br>
+        {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.role.label }}<br>
+        {{ form.role() }}<br>
+    </div>
+    <div>
+        {{ form.name.label }}<br>
+        {{ form.name(size=32) }}<br>
+    </div>
+    <div>
+        {% if user.role == 'teacher' %}
+            {{ form.subject.label }}<br>
+            {{ form.subject(size=32) }}<br>
+        {% elif user.role == 'parent' %}
+            {{ form.child_name.label }}<br>
+            {{ form.child_name(size=32) }}<br>
+        {% elif user.role == 'finance' %}
+            {{ form.department.label }}<br>
+            {{ form.department(size=32) }}<br>
+        {% endif %}
+    </div>
+    <div>
+        <button type="submit">Update User</button>
+    </div>
+</form>
+{% endblock %}

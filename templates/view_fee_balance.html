@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Fee Balance for {{ current_user.parent.child_name }}</h2>
+
+{% if fee_balance %}
+    <p>Current Fee Balance: {{ fee_balance.fee_balance }}</p>
+{% else %}
+    <p>No fee balance information found for this student.</p>
+{% endif %}
+
+<a href="{{ url_for('parent_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}

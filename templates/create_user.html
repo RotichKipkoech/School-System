@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            const subjectField = document.getElementById('subject-field');
+            const departmentField = document.getElementById('department-field');
+            const childNameField = document.getElementById('child-name-field');
+
+            function toggleFields() {
+                const role = roleSelect.value;
+                subjectField.style.display = role === 'teacher' ? 'block' : 'none';
+                departmentField.style.display = role === 'finance' ? 'block' : 'none';
+                childNameField.style.display = role === 'parent' ? 'block' : 'none';
+            }
+
+            roleSelect.addEventListener('change', toggleFields);
+            toggleFields(); // Initial call to set visibility on page load
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Create User</h2>
+        <form method="POST" action="{{ url_for('create_user') }}">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username(class="form-control") }}
+                {% if form.username.errors %}
+                    <div class="text-danger">{{ form.username.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password(class="form-control") }}
+                {% if form.password.errors %}
+                    <div class="text-danger">{{ form.password.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                {{ form.name(class="form-control") }}
+                {% if form.name.errors %}
+                    <div class="text-danger">{{ form.name.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                {{ form.role(class="form-control", id="role") }}
+                {% if form.role.errors %}
+                    <div class="text-danger">{{ form.role.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div id="subject-field" class="form-group" style="display:none;">
+                <label for="subject">Subject</label>
+                {{ form.subject(class="form-control") }}
+                {% if form.subject.errors %}
+                    <div class="text-danger">{{ form.subject.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div id="department-field" class="form-group" style="display:none;">
+                <label for="department">Department</label>
+                {{ form.department(class="form-control") }}
+                {% if form.department.errors %}
+                    <div class="text-danger">{{ form.department.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div id="child-name-field" class="form-group" style="display:none;">
+                <label for="child_name">Child Name</label>
+                {{ form.child_name(class="form-control") }}
+                {% if form.child_name.errors %}
+                    <div class="text-danger">{{ form.child_name.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

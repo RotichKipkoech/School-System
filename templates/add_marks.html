@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Marks</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.student_name.label }}<br>
+        {{ form.student_name(size=32) }}<br>
+    </div>
+    <div>
+        {{ form.marks.label }}<br>
+        {{ form.marks(size=32) }}<br>
+    </div>
+    <div>
+        <button type="submit">Add Marks</button>
+    </div>
+</form>
+{% endblock %}
