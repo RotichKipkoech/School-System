@@ -5,11 +5,13 @@
     <tr>
         <th>Student Name</th>
         <th>Marks</th>
+        <th>Subject</th>  <!-- Add a header for Subject -->
     </tr>
-    {% for mark in marks %}
+    {% for student_name, marks, subject in marks %}
     <tr>
-        <td>{{ mark.student_name }}</td>
-        <td>{{ mark.marks }}</td>
+        <td>{{ student_name }}</td>
+        <td>{{ marks }}</td>
+        <td>{{ subject }}</td>  <!-- Display the Subject -->
     </tr>
     {% endfor %}
 </table>

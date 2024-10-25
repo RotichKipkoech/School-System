@@ -193,6 +193,7 @@ def add_marks():
     return render_template('add_marks.html', form=form)
 
 # View marks for parents
+# View marks for parents
 @app.route('/view_marks', methods=['GET'])
 @login_required
 def view_marks():
@@ -200,8 +201,22 @@ def view_marks():
         flash('You are not authorized to perform this action.')
         return redirect(url_for('login'))
 
-    marks = StudentMark.query.filter_by(student_name=current_user.parent.child_name).all()
-    return render_template('view_marks.html', marks=marks)
+    # Fetch the marks along with the subject
+    marks = (
+        StudentMark.query
+        .join(Teacher)  # Join with the Teacher model
+        .filter(StudentMark.student_name == current_user.parent.child_name)  # Filter by the child's name
+        .add_columns(Teacher.subject)  # Select the subject as well
+        .all()
+    )
+    
+    # Prepare the marks data for rendering
+    # Unpack each mark and its corresponding subject
+    marks_with_subjects = [(mark.student_name, mark.marks, subject) for mark, subject in marks]
+
+    return render_template('view_marks.html', marks=marks_with_subjects)
+
+
 
 # Update fees route for finance
 @app.route('/update_fees', methods=['GET', 'POST'])
