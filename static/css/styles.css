@@ -90,7 +90,7 @@ form input[type="submit"]:hover {
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    color: #fff;
+    /* color: #fff; */
     transition: background-color 0.3s ease;
 }
 
