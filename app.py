@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -8,8 +9,12 @@ from forms import LoginForm, CreateUserForm, AddMarksForm, FeesUpdateForm  # Ens
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school_system.db'
-app.config['SECRET_KEY'] = 'yoursecretkey'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school_system.db'
+# app.config['SECRET_KEY'] = 'yoursecretkey'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')  # Read from env variable
+# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback-secret-key')  # Use env variable for security
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# postgresql://school_database_g9ix_user:oheTAWHWuB66JLVtTU7M4o32K3nbcaVA@dpg-cseu9eu8ii6s739965o0-a.oregon-postgres.render.com/school_database_g9ix
 
 db.init_app(app)
 
