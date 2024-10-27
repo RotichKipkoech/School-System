@@ -38,7 +38,6 @@ def dashboard():
     return render_template('dashboard.html')
 
 # Create admin user function
-@app.cli.command('create_admin')
 def create_admin_user():
     with app.app_context():
         admin_user = User.query.filter_by(username='Admin').first()
@@ -50,6 +49,9 @@ def create_admin_user():
             print("Admin user created with username: 'Admin' and password: 'Admin@123'")
         else:
             print("Admin user already exists")
+
+# Run this function when the app starts
+create_admin_user()
 
 @app.route('/')
 def home():
