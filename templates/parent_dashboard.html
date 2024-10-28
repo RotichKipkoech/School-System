@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <div class="container">
     <h2 class="mt-4">Parent Dashboard</h2>
@@ -8,15 +7,6 @@
     <div class="mb-3">
         <a href="{{ url_for('view_marks') }}" class="btn btn-primary">View Marks</a>
         <a href="{{ url_for('view_fee_balance') }}" class="btn btn-secondary">View Fee Balance</a>
-    </div>
-    
-    <!-- Display child's fee balance with print option -->
-    <h3 class="mt-4">Fee Balance</h3>
-    <div class="fee-balance-section">
-        <p>Your child's current fee balance is: <strong>{{ View_fee_balance }}</strong></p>
-        <button onclick="window.print()" class="btn btn-info">
-            <i class="fa fa-print"></i> Print Fee Statement
-        </button>
     </div>
     
     <h3 class="mt-4">Additional Information</h3>
