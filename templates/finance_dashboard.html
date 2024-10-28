@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
@@ -16,28 +15,22 @@
         </div>
         <div class="card-body">
             <p>Check the status of pending fees and manage updates.</p>
-            <!-- You can add a table or other content here -->
+            <!-- Add your form for updating fees here -->
+            <form method="POST" action="{{ url_for('update_fees') }}">
+                {{ form.hidden_tag() }}
+                <div>
+                    {{ form.student_name.label }}<br>
+                    {{ form.student_name() }}<br>
+                </div>
+                <div>
+                    {{ form.fee_balance.label }}<br>
+                    {{ form.fee_balance(size=32) }}<br>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Update Fees</button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <!-- Fee Balance Form -->
-    <h3 class="mt-4">Update Fee Balance</h3>
-    <form method="POST" action="{{ url_for('update_fee_balance') }}">
-        <div class="form-group">
-            <label for="child_name">Select Child</label>
-            <select id="child_name" name="child_name" class="form-control" required>
-                {% for child in children %}
-                    <option value="{{ child.id }}">{{ child.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="fee_balance">Enter Fee Balance</label>
-            <input type="number" id="fee_balance" name="fee_balance" value="20000" min="0" max="20000" class="form-control" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Update Fee Balance</button>
-    </form>
 </div>
 {% endblock %}
