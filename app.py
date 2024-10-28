@@ -163,29 +163,40 @@ def delete_user(user_id):
         flash('You are not authorized to perform this action.')
         return redirect(url_for('admin_dashboard'))
 
-    # If the user is a parent, delete the corresponding Parent record
-    if user.role == 'parent':
-        parent = Parent.query.filter_by(user_id=user.id).first()
-        if parent:
-            db.session.delete(parent)
-    
-    # If the user is a teacher, handle related Teacher records if applicable
-    elif user.role == 'teacher':
-        teacher = Teacher.query.filter_by(user_id=user.id).first()
-        if teacher:
-            db.session.delete(teacher)
-    
-    # If the user is in finance, handle related Finance records if applicable
-    elif user.role == 'finance':
-        finance_record = Finance.query.filter_by(user_id=user.id).first()
-        if finance_record:
-            db.session.delete(finance_record)
+    try:
+        # If the user is a parent, delete the corresponding Parent record
+        if user.role == 'parent':
+            parent = Parent.query.filter_by(user_id=user.id).first()
+            if parent:
+                db.session.delete(parent)
 
-    # Delete the user record
-    db.session.delete(user)
-    db.session.commit()
-    flash(f'User {user.username} deleted successfully!')
+        # If the user is a teacher, delete the corresponding Teacher record
+        elif user.role == 'teacher':
+            teacher = Teacher.query.filter_by(user_id=user.id).first()
+            if teacher:
+                db.session.delete(teacher)
+            else:
+                flash('No associated teacher record found.')
+
+        # If the user is in finance, delete the corresponding Finance record
+        elif user.role == 'finance':
+            finance_record = Finance.query.filter_by(user_id=user.id).first()
+            if finance_record:
+                db.session.delete(finance_record)
+            else:
+                flash('No associated finance record found.')
+
+        # Delete the user record
+        db.session.delete(user)
+        db.session.commit()
+        flash(f'User {user.username} and associated records deleted successfully!')
+
+    except Exception as e:
+        db.session.rollback()  # Roll back any changes in case of an error
+        flash(f'Error deleting user: {str(e)}')
+    
     return redirect(url_for('admin_dashboard'))
+
 
 @app.route('/teacher_dashboard')
 @login_required
