@@ -157,14 +157,24 @@ def edit_user(user_id):
 @login_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
+    
+    # Ensure only the admin can delete users
     if current_user.role != 'admin':
         flash('You are not authorized to perform this action.')
-        return redirect(url_for('login'))
+        return redirect(url_for('admin_dashboard'))
 
+    # If the user is a parent, delete the corresponding Parent record
+    if user.role == 'parent':
+        parent = Parent.query.filter_by(user_id=user.id).first()
+        if parent:
+            db.session.delete(parent)
+
+    # Delete the user record
     db.session.delete(user)
     db.session.commit()
     flash(f'User {user.username} deleted successfully!')
     return redirect(url_for('admin_dashboard'))
+
 
 @app.route('/teacher_dashboard')
 @login_required

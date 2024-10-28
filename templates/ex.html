@@ -20,3 +20,16 @@
     </div>
 </div>
 {% endblock %} --> -->
+
+<!-- @app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    if current_user.role != 'admin':
+        flash('You are not authorized to perform this action.')
+        return redirect(url_for('login'))
+
+    db.session.delete(user)
+    db.session.commit()
+    flash(f'User {user.username} deleted successfully!')
+    return redirect(url_for('admin_dashboard')) -->
