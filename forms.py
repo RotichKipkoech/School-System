@@ -23,6 +23,6 @@ class AddMarksForm(FlaskForm):
     submit = SubmitField('Add Marks')
 
 class FeesUpdateForm(FlaskForm):
-    student_name = SelectField('Select Child', coerce=int, validators=[DataRequired()])
+    student_name = SelectField('Student Name', choices=[], validators=[DataRequired()])
     fee_balance = FloatField('Fee Balance', validators=[DataRequired()])
     submit = SubmitField('Update Fees')
