@@ -15,16 +15,15 @@
         </div>
         <div class="card-body">
             <p>Check the status of pending fees and manage updates.</p>
-            <!-- Add your form for updating fees here -->
             <form method="POST" action="{{ url_for('update_fees') }}">
                 {{ form.hidden_tag() }}
                 <div>
                     {{ form.student_name.label }}<br>
-                    {{ form.student_name() }}<br>
+                    {{ form.student_name(size=32) }}<br>
                 </div>
                 <div>
                     {{ form.fee_balance.label }}<br>
-                    {{ form.fee_balance(size=32) }}<br>
+                    {{ form.fee_balance(value=20000, readonly=True) }}<br> <!-- Setting default value to 20,000 -->
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Update Fees</button>

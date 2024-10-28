@@ -179,7 +179,8 @@ def parent_dashboard():
 @app.route('/finance_dashboard')
 @login_required
 def finance_dashboard():
-    return render_template('finance_dashboard.html')
+    form = FeesUpdateForm()  # Create an instance of the form
+    return render_template('finance_dashboard.html', form=form)
 
 # Add marks route for teachers
 @app.route('/add_marks', methods=['GET', 'POST'])
