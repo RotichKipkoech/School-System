@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
@@ -18,5 +19,25 @@
             <!-- You can add a table or other content here -->
         </div>
     </div>
+
+    <!-- Fee Balance Form -->
+    <h3 class="mt-4">Update Fee Balance</h3>
+    <form method="POST" action="{{ url_for('update_fee_balance') }}">
+        <div class="form-group">
+            <label for="child_name">Select Child</label>
+            <select id="child_name" name="child_name" class="form-control" required>
+                {% for child in children %}
+                    <option value="{{ child.id }}">{{ child.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fee_balance">Enter Fee Balance</label>
+            <input type="number" id="fee_balance" name="fee_balance" value="20000" min="0" max="20000" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Fee Balance</button>
+    </form>
 </div>
 {% endblock %}

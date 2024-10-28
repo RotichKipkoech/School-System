@@ -234,11 +234,19 @@ def update_fees():
         return redirect(url_for('login'))
 
     form = FeesUpdateForm()
+    # Assuming you have a Child model to get the names of the children
+    form.student_name.choices = [(child.id, child.name) for child in Child.query.all()]
+
     if form.validate_on_submit():
-        student_fee = StudentFee(student_name=form.student_name.data, fee_balance=form.fee_balance.data, finance_id=current_user.finance.id)
-        db.session.add(student_fee)
-        db.session.commit()
-        flash(f'Fees for {form.student_name.data} updated successfully!')
+        # Logic for updating the fee balance
+        student_fee = StudentFee.query.filter_by(student_name=form.student_name.data).first()
+        if student_fee:
+            student_fee.fee_balance = form.fee_balance.data
+            db.session.commit()
+            flash(f'Fees for {form.student_name.data} updated successfully!', 'success')
+        else:
+            flash(f'Student not found', 'danger')
+
         return redirect(url_for('finance_dashboard'))
 
     return render_template('update_fees.html', form=form)
