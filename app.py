@@ -236,9 +236,8 @@ def update_fees():
 
     form = FeesUpdateForm()
     
-    # Query all parents to get their child names
-    parents = User.query.filter_by(role='parent').all()
-    form.student_name.choices = [(parent.child_name.data, parent.child_name.data) for parent in parents]
+    # Get child names for the parent
+    children = User.query.filter_by(role='parent').all()  # Adjust this as needed to filter based on the current user
 
     if form.validate_on_submit():
         student_fee = StudentFee(student_name=form.student_name.data, fee_balance=form.fee_balance.data, finance_id=current_user.finance.id)
@@ -247,7 +246,11 @@ def update_fees():
         flash(f'Fees for {form.student_name.data} updated successfully!')
         return redirect(url_for('finance_dashboard'))
 
+    # Pass child names to the form as choices
+    form.student_name.choices = [(child.child_name, child.child_name) for child in children]
+
     return render_template('update_fees.html', form=form)
+
 
 
 @app.route('/view_fee_balance', methods=['GET'])
