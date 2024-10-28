@@ -14,72 +14,27 @@
 </div>
 {% endblock %} -->
 
-
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
     <h2 class="mt-4">Parent Dashboard</h2>
-    <p>Welcome, {{ current_user.username }}! Here you can view your child's fee balance and print statements.</p>
-    
-    <h3>Fee Balances</h3>
-    <div id="fee-statement-section">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Student Name</th>
-                    <th>Fee Balance</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for fee in fees %}
-                <tr>
-                    <td>{{ fee.student_name }}</td>
-                    <td>{{ fee.fee_balance | round(2) }}</td>
-                    <td>
-                        <!-- Print Button -->
-                        <button class="btn btn-info btn-sm" onclick="printStatement('{{ fee.student_name }}', {{ fee.fee_balance | round(2) }})">
-                            <i class="fas fa-print"></i> Print Statement
-                        </button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+    <p>Welcome to your dashboard! Here you can manage your child's educational details.</p>
 
-<!-- JavaScript to Handle Print Function -->
-<script>
-    function printStatement(studentName, feeBalance) {
-        // Create a new window for printing
-        const printWindow = window.open('', '_blank', 'width=600,height=400');
-        
-        // Add HTML content for the statement
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Fee Statement for ${studentName}</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 20px; }
-                    h2 { color: #333; }
-                    .content { border-top: 1px solid #333; padding-top: 20px; }
-                    .content p { font-size: 1.2em; }
-                </style>
-            </head>
-            <body>
-                <h2>Fee Statement for ${studentName}</h2>
-                <div class="content">
-                    <p><strong>Student Name:</strong> ${studentName}</p>
-                    <p><strong>Fee Balance:</strong> $${feeBalance.toFixed(2)}</p>
-                </div>
-                <button onclick="window.print()">Print</button>
-            </body>
-            </html>
-        `);
-        
-        // Close the document to trigger the rendering
-        printWindow.document.close();
-    }
-</script>
+    <div class="mb-3">
+        <a href="{{ url_for('view_marks') }}" class="btn btn-primary">View Marks</a>
+        <a href="{{ url_for('view_fee_balance') }}" class="btn btn-secondary">View Fee Balance</a>
+    </div>
+
+    <!-- Display child's fee balance with print option -->
+    <h3 class="mt-4">Fee Balance</h3>
+    <div class="fee-balance-section">
+        <p>Your child's current fee balance is: <strong>{{ child_fee_balance }}</strong></p>
+        <button onclick="window.print()" class="btn btn-info">
+            <i class="fa fa-print"></i> Print Fee Statement
+        </button>
+    </div>
+
+    <h3 class="mt-4">Additional Information</h3>
+    <p>If you have any questions or need assistance, please contact the administration.</p>
+</div>
 {% endblock %}
