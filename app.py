@@ -153,7 +153,7 @@ def edit_user(user_id):
     
     return render_template('edit_user.html', form=form, user=user)
 
-@app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
 @login_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
