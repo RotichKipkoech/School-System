@@ -5,7 +5,7 @@
     {{ form.hidden_tag() }}
     <div>
         {{ form.student_name.label }}<br>
-        {{ form.student_name() }}<br>  <!-- Render the SelectField -->
+        {{ form.student_name(size=32) }}<br>
     </div>
     <div>
         {{ form.fee_balance.label }}<br>
