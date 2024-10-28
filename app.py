@@ -168,13 +168,24 @@ def delete_user(user_id):
         parent = Parent.query.filter_by(user_id=user.id).first()
         if parent:
             db.session.delete(parent)
+    
+    # If the user is a teacher, handle related Teacher records if applicable
+    elif user.role == 'teacher':
+        teacher = Teacher.query.filter_by(user_id=user.id).first()
+        if teacher:
+            db.session.delete(teacher)
+    
+    # If the user is in finance, handle related Finance records if applicable
+    elif user.role == 'finance':
+        finance_record = Finance.query.filter_by(user_id=user.id).first()
+        if finance_record:
+            db.session.delete(finance_record)
 
     # Delete the user record
     db.session.delete(user)
     db.session.commit()
     flash(f'User {user.username} deleted successfully!')
     return redirect(url_for('admin_dashboard'))
-
 
 @app.route('/teacher_dashboard')
 @login_required
