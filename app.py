@@ -256,7 +256,6 @@ def view_marks():
 
 
 
-# Update fees route for finance
 # Update fees route for finance 
 @app.route('/update_fees', methods=['GET', 'POST'])
 @login_required
