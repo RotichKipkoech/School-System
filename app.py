@@ -232,7 +232,6 @@ def add_marks():
     return render_template('add_marks.html', form=form)
 
 # View marks for parents
-# View marks for parents
 @app.route('/view_marks', methods=['GET'])
 @login_required
 def view_marks():
