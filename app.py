@@ -14,7 +14,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')  # Read from env variable
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback-secret-key')  # Use env variable for security
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# postgresql://school_database_g9ix_user:oheTAWHWuB66JLVtTU7M4o32K3nbcaVA@dpg-cseu9eu8ii6s739965o0-a.oregon-postgres.render.com/school_database_g9ix
 
 db.init_app(app)
 
